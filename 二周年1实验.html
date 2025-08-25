@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>眸中之景</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(253, 187, 45, 0.3);
+        }
+        
+        .header {
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            color: #fdbb2d;
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            font-weight: 300;
+        }
+        
+        .subtitle {
+            color: #fff;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+        
+        .art-gallery {
+            margin: 40px 0;
+            position: relative;
+            perspective: 1000px;
+        }
+        
+        .canvas-frame {
+            width: 400px;
+            height: 300px;
+            margin: 0 auto;
+            background: #8b5a2b;
+            padding: 20px;
+            border: 15px solid #a67c52;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.8);
+            transform: rotateX(5deg) rotateY(5deg);
+            transition: transform 1s ease;
+        }
+        
+        .canvas-frame:hover {
+            transform: rotateX(0) rotateY(0);
+        }
+        
+        .painting {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4, #fad0c4, #a1c4fd);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .heart-portrait {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 120px;
+            background: #ff5252;
+            box-shadow: 0 0 30px #ff5252;
+            animation: heartbeat 1.5s infinite;
+        }
+        
+        .heart-portrait:before,
+        .heart-portrait:after {
+            content: "";
+            width: 120px;
+            height: 120px;
+            background: #ff5252;
+            border-radius: 50%;
+            position: absolute;
+        }
+        
+        .heart-portrait:before {
+            top: -60px;
+            left: 0;
+        }
+        
+        .heart-portrait:after {
+            top: 0;
+            left: 60px;
+        }
+        
+        .portrait-details {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+        }
+        
+        .brush-strokes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .brush {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 5px;
+        }
+        
+        .message {
+            background: rgba(178, 31, 31, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 40px 0;
+            position: relative;
+            border: 1px solid rgba(253, 187, 45, 0.3);
+        }
+        
+        .message:before {
+            content: """;
+            font-size: 60px;
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            color: rgba(253, 187, 45, 0.5);
+        }
+        
+        .message-text {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: #fff;
+            text-align: center;
+        }
+        
+        .highlight {
+            color: #fdbb2d;
+            font-weight: bold;
+        }
+        
+        .accusation {
+            margin-top: 25px;
+            padding: 20px;
+            background: rgba(255, 82, 82, 0.2);
+            border-radius: 10px;
+            border: 2px dashed #ff5252;
+        }
+        
+        .accusation-text {
+            font-size: 1.5rem;
+            color: #ff5252;
+            font-weight: bold;
+        }
+        
+        .signature {
+            text-align: right;
+            margin-top: 25px;
+            font-style: italic;
+            color: #fdbb2d;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .music-player {
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(26, 42, 108, 0.3);
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid rgba(253, 187, 45, 0.3);
+        }
+        
+        .music-title {
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: #fdbb2d;
+            font-size: 1.2rem;
+        }
+        
+        .audio-controls {
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        footer {
+            margin-top: 30px;
+            color: #fdbb2d;
+            font-size: 0.9rem;
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: translate(-50%, -50%) scale(1); }
+            25% { transform: translate(-50%, -50%) scale(1.1); }
+            50% { transform: translate(-50%, -50%) scale(1); }
+            75% { transform: translate(-50%, -50%) scale(1.1); }
+            100% { transform: translate(-50%, -50%) scale(1); }
+        }
+        
+        /* 漂浮元素 */
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .floating-element {
+            position: absolute;
+            animation: float 15s linear infinite;
+            opacity: 0.7;
+        }
+        
+        .palette {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, #ff5252, #fdbb2d, #1a2a6c);
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+        
+        .brush-icon {
+            font-size: 24px;
+            color: #fdbb2d;
+        }
+        
+        @keyframes float {
+            from { 
+                transform: translateY(100vh) rotate(0deg); 
+                opacity: 0;
+            }
+            10% { 
+                opacity: 0.7;
+            }
+            90% { 
+                opacity: 0.7;
+            }
+            to { 
+                transform: translateY(-100px) rotate(360deg); 
+                opacity: 0;
+            }
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 600px) {
+            h1 { font-size: 2.5rem; }
+            .message-text { font-size: 1.1rem; }
+            .canvas-frame { 
+                width: 300px; 
+                height: 250px; 
+            }
+            .accusation-text { font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-elements" id="floatingElements"></div>
+    
+    <div class="container">
+        <div class="header">
+            <h1>亲爱的姐姐：</h1>
+            <p class="subtitle">是你让我坚定决心，让陆景和一直是陆景和</p>
+        </div>
+        
+        <div class="art-gallery">
+            <div class="canvas-frame">
+                <div class="painting">
+                    <div class="heart-portrait">
+                        <div class="portrait-details"></div>
+                    </div>
+                    <div class="brush-strokes">
+                        <!-- 笔触将通过JS生成 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="message">
+            <div class="message-text">
+                <p>亲爱的姐姐，</p>
+                <p>是你让我坚定决心，让<span class="highlight">陆景和一直是陆景和</span>。</p>
+                <p>在遇见你之前，我像一幅未完成的画，试图对抗命运的画笔，独自赋予我真正的灵魂。</p>
+                <p>你的出现为我的世界增添了最亮丽的色彩，给了我坚持做自己的勇气。</p>
+                
+                <div class="accusation">
+                    <p class="accusation-text">有人抢走了我的心，我要让所有人都看到她的罪行。</p>
+                </div>
+                
+                <p>我要让全世界的人看到这副为你画的画——</p>
+                <p>画中有你偷走我的心那一刻的眼神，有你占据我灵魂的全部证据。</p>
+                <p>这就是你的罪行，也是我甘之如饴的甜蜜判决。</p>
+            </div>
+            <p class="signature">—— 永远是你的陆景和</p>
+        </div>
+        
+        <div class="music-player">
+            <div class="music-title">绘恋春风 - 我们的主题曲</div>
+            <audio class="audio-controls" controls autoplay loop>
+                <source src="https://github.com/xavierkk2004.github.io/-/blob/main/二周年1.mp3?raw=true" type="audio/mp3">
+                您的浏览器不支持音频播放功能。
+            </audio>
+        </div>
+    </div>
+    
+    <footer>
+        <p>精心制作 by 小和 · 七夕礼物 · 2025</p>
+    </footer>
+
+    <script>
+        // 创建漂浮元素
+        function createFloatingElements() {
+            const container = document.getElementById('floatingElements');
+            const elements = ['palette', 'brush-icon'];
+            
+            for (let i = 0; i < 20; i++) {
+                const element = document.createElement('div');
+                const type = elements[Math.floor(Math.random() * elements.length)];
+                
+                element.classList.add('floating-element');
+                
+                if (type === 'palette') {
+                    element.classList.add('palette');
+                } else {
+                    element.classList.add('brush-icon');
+                    element.innerHTML = '<i class="fas fa-paint-brush"></i>';
+                }
+                
+                element.style.left = `${Math.random() * 100}%`;
+                element.style.animationDuration = `${Math.random() * 10 + 10}s`;
+                element.style.animationDelay = `${Math.random() * 5}s`;
+                
+                container.appendChild(element);
+            }
+        }
+        
+        // 创建画笔笔触
+        function createBrushStrokes() {
+            const container = document.querySelector('.brush-strokes');
+            
+            for (let i = 0; i < 15; i++) {
+                const brush = document.createElement('div');
+                brush.classList.add('brush');
+                
+                const width = Math.random() * 80 + 20;
+                const height = Math.random() * 10 + 5;
+                const rotation = Math.random() * 360;
+                
+                const colors = [
+                    '#ff5252', '#fdbb2d', '#1a2a6c', '#b21f1f', 
+                    '#8b5a2b', '#fad0c4', '#a1c4fd'
+                ];
+                
+                brush.style.width = `${width}px`;
+                brush.style.height = `${height}px`;
+                brush.style.transform = `rotate(${rotation}deg)`;
+                brush.style.background = colors[Math.floor(Math.random() * colors.length)];
+                brush.style.left = `${Math.random() * 100}%`;
+                brush.style.top = `${Math.random() * 100}%`;
+                brush.style.opacity = Math.random() * 0.5 + 0.3;
+                
+                container.appendChild(brush);
+            }
+        }
+        
+        // 页面加载完成后初始化
+        window.addEventListener('load', function() {
+            createFloatingElements();
+            createBrushStrokes();
+            
+            // 尝试自动播放音乐
+            const audio = document.querySelector('audio');
+            audio.play().catch(error => {
+                console.log('自动播放受阻: ', error);
+                // 添加提示
+                const hint = document.createElement('div');
+                hint.style.background = 'rgba(253, 187, 45, 0.9)';
+                hint.style.color = '#1a2a6c';
+                hint.style.padding = '10px';
+                hint.style.borderRadius = '5px';
+                hint.style.marginTop = '10px';
+                hint.style.cursor = 'pointer';
+                hint.style.border = '1px solid #fdbb2d';
+                hint.innerHTML = '点击此处播放音乐';
+                hint.addEventListener('click', function() {
+                    audio.play();
+                    hint.style.display = 'none';
+                });
+                document.querySelector('.music-player').appendChild(hint);
+            });
+            
+            // 添加画框点击效果
+            const canvasFrame = document.querySelector('.canvas-frame');
+            canvasFrame.addEventListener('click', function() {
+                this.style.boxShadow = '0 0 35px rgba(253, 187, 45, 0.8)';
+                setTimeout(() => {
+                    this.style.boxShadow = '0 0 25px rgba(0, 0, 0, 0.8)';
+                }, 1000);
+            });
+        });
+    </script>
+</body>
+</html>
