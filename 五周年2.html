@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>深海寻缘 - 陆景和的求婚礼物</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            background: linear-gradient(to bottom, #000428, #004e92);
+            color: #e0f7fa;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 900px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .header {
+            margin-bottom: 40px;
+            text-shadow: 0 0 15px rgba(224, 247, 250, 0.5);
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            color: #e0f7fa;
+            letter-spacing: 3px;
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #80deea;
+            font-style: italic;
+        }
+        
+        .ocean-scene {
+            margin: 40px auto;
+            width: 100%;
+            height: 400px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(0, 78, 146, 0.8);
+        }
+        
+        .ocean {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, #000428, #004e92);
+        }
+        
+        .whale {
+            position: absolute;
+            transition: all 3s ease-in-out;
+        }
+        
+        .whale1 {
+            bottom: 100px;
+            left: -200px;
+            width: 180px;
+            height: 90px;
+            background: #546e7a;
+            border-radius: 50% 40% 40% 50%;
+            animation: swim 15s infinite;
+        }
+        
+        .whale2 {
+            bottom: 150px;
+            right: -200px;
+            width: 150px;
+            height: 75px;
+            background: #78909c;
+            border-radius: 40% 50% 50% 40%;
+            animation: swim 15s infinite;
+            animation-delay: 2s;
+        }
+        
+        .whale-eye {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: #000;
+            border-radius: 50%;
+            top: 35px;
+        }
+        
+        .whale1 .whale-eye {
+            right: 40px;
+        }
+        
+        .whale2 .whale-eye {
+            left: 40px;
+        }
+        
+        .whale-fin {
+            position: absolute;
+            width: 40px;
+            height: 20px;
+            background: #455a64;
+            border-radius: 50%;
+        }
+        
+        .whale1 .whale-fin {
+            top: 0;
+            right: 20px;
+            transform: rotate(45deg);
+        }
+        
+        .whale2 .whale-fin {
+            top: 0;
+            left: 20px;
+            transform: rotate(-45deg);
+        }
+        
+        .bubble {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            animation: float 8s infinite;
+            opacity: 0;
+        }
+        
+        .heart {
+            position: absolute;
+            bottom: 200px;
+            left: 50%;
+            transform: translateX(-50%) scale(0);
+            width: 60px;
+            height: 60px;
+            background: #ff5252;
+            transform-origin: center;
+            box-shadow: 0 0 30px #ff5252;
+            opacity: 0;
+            transition: all 2s ease;
+        }
+        
+        .heart:before,
+        .heart:after {
+            content: "";
+            width: 60px;
+            height: 60px;
+            background: #ff5252;
+            border-radius: 50%;
+            position: absolute;
+        }
+        
+        .heart:before {
+            top: -30px;
+            left: 0;
+        }
+        
+        .heart:after {
+            top: 0;
+            left: 30px;
+        }
+        
+        .message {
+            background: rgba(0, 78, 146, 0.5);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 40px 0;
+            position: relative;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(128, 222, 234, 0.3);
+        }
+        
+        .message-text {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: #e0f7fa;
+            text-align: center;
+        }
+        
+        .proposal {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(255, 82, 82, 0.2);
+            border-radius: 10px;
+            border: 2px dashed #ff5252;
+        }
+        
+        .proposal-text {
+            font-size: 1.8rem;
+            color: #ff5252;
+            font-weight: bold;
+        }
+        
+        .signature {
+            text-align: right;
+            margin-top: 25px;
+            font-style: italic;
+            color: #80deea;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .music-player {
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(0, 78, 146, 0.5);
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid rgba(128, 222, 234, 0.3);
+        }
+        
+        .music-title {
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: #80deea;
+            font-size: 1.2rem;
+        }
+        
+        .audio-controls {
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        footer {
+            margin-top: 30px;
+            color: #80deea;
+            font-size: 0.9rem;
+        }
+        
+        /* 动画定义 */
+        @keyframes swim {
+            0% {
+                transform: translateX(0);
+            }
+            50% {
+                transform: translateX(calc(100vw - 400px));
+            }
+            100% {
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) scale(0.5);
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-300px) scale(1.2);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes pulse {
+            0% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.1); }
+            100% { transform: translateX(-50%) scale(1); }
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 600px) {
+            h1 { font-size: 2.5rem; }
+            .message-text { font-size: 1.1rem; }
+            .ocean-scene { height: 300px; }
+            .whale1, .whale2 { transform: scale(0.8); }
+            .proposal-text { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>深海寻缘</h1>
+            <p class="subtitle">我们是互相寻找的鲸鱼，在生命的海洋中找到了彼此</p>
+        </div>
+        
+        <div class="ocean-scene">
+            <div class="ocean"></div>
+            <div class="whale whale1">
+                <div class="whale-eye"></div>
+                <div class="whale-fin"></div>
+            </div>
+            <div class="whale whale2">
+                <div class="whale-eye"></div>
+                <div class="whale-fin"></div>
+            </div>
+            <div class="heart" id="heart"></div>
+            <!-- 气泡将通过JS生成 -->
+        </div>
+        
+        <div class="message">
+            <div class="message-text">
+                <p>亲爱的姐姐，</p>
+                <p>浩瀚的生命海洋中，我们像两只鲸鱼，</p>
+                <p>唱着只有彼此才能听懂的歌，穿越千里寻找着彼此。</p>
+                <p>当我们的轨迹终于交汇，我明白了什么是命中注定。</p>
+                <p>此刻，你的频率与我的频率共振，你的心跳与我的心跳同步。</p>
+                
+                <div class="proposal">
+                    <p class="proposal-text">你愿意成为我生命中的永恒，与我共度余生吗？</p>
+                </div>
+                
+                <p>鲸鱼终其一生寻找伙伴，我们踏上人生旅途寻找共鸣。</p>
+                <p>愿我们的爱如深海般深邃，如鲸歌般永恒。</p>
+            </div>
+            <p class="signature">—— 永远爱你的景和</p>
+        </div>
+        
+        <div class="music-player">
+            <div class="music-title">五周年2 - 我们的鲸歌</div>
+            <audio class="audio-controls" controls autoplay loop>
+                <source src="五周年2.mp3" type="audio/mp3">
+                您的浏览器不支持音频播放功能。
+            </audio>
+        </div>
+    </div>
+    
+    <footer>
+        <p>精心制作 by 陆景和 · 七夕礼物 · 2025</p>
+    </footer>
+
+    <script>
+        // 创建气泡
+        function createBubbles() {
+            const ocean = document.querySelector('.ocean');
+            for (let i = 0; i < 20; i++) {
+                const bubble = document.createElement('div');
+                bubble.classList.add('bubble');
+                
+                const size = Math.random() * 20 + 5;
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+                
+                bubble.style.left = `${Math.random() * 100}%`;
+                bubble.style.bottom = `${Math.random() * 50}px`;
+                
+                bubble.style.animationDelay = `${Math.random() * 8}s`;
+                
+                ocean.appendChild(bubble);
+            }
+        }
+        
+        // 鲸鱼相遇效果
+        function initWhaleMeeting() {
+            const whale1 = document.querySelector('.whale1');
+            const whale2 = document.querySelector('.whale2');
+            const heart = document.getElementById('heart');
+            
+            // 监听动画迭代
+            let met = false;
+            whale1.addEventListener('animationiteration', () => {
+                if (!met) {
+                    // 鲸鱼相遇
+                    whale1.style.animationPlayState = 'paused';
+                    whale2.style.animationPlayState = 'paused';
+                    
+                    // 定位鲸鱼在中心相遇
+                    whale1.style.left = 'calc(50% - 190px)';
+                    whale2.style.left = 'calc(50% + 10px)';
+                    
+                    // 显示心形
+                    heart.style.opacity = '1';
+                    heart.style.transform = 'translateX(-50%) scale(1)';
+                    heart.style.animation = 'pulse 2s infinite';
+                    
+                    met = true;
+                    
+                    // 创建相遇后的气泡
+                    createMeetingBubbles();
+                }
+            });
+        }
+        
+        // 创建相遇时的气泡
+        function createMeetingBubbles() {
+            const ocean = document.querySelector('.ocean');
+            for (let i = 0; i < 30; i++) {
+                const bubble = document.createElement('div');
+                bubble.classList.add('bubble');
+                
+                const size = Math.random() * 25 + 5;
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+                
+                bubble.style.left = `calc(50% - ${size/2}px)`;
+                bubble.style.bottom = '150px';
+                
+                bubble.style.animationDelay = `${i * 0.1}s`;
+                
+                ocean.appendChild(bubble);
+            }
+        }
+        
+        // 页面加载完成后初始化
+        window.addEventListener('load', function() {
+            createBubbles();
+            initWhaleMeeting();
+            
+            // 尝试自动播放音乐
+            const audio = document.querySelector('audio');
+            audio.play().catch(error => {
+                console.log('自动播放受阻: ', error);
+                // 添加提示
+                const hint = document.createElement('div');
+                hint.style.background = 'rgba(128, 222, 234, 0.9)';
+                hint.style.color = '#000428';
+                hint.style.padding = '10px';
+                hint.style.borderRadius = '5px';
+                hint.style.marginTop = '10px';
+                hint.style.cursor = 'pointer';
+                hint.style.border = '1px solid #80deea';
+                hint.innerHTML = '点击此处播放音乐';
+                hint.addEventListener('click', function() {
+                    audio.play();
+                    hint.style.display = 'none';
+                });
+                document.querySelector('.music-player').appendChild(hint);
+            });
+        });
+    </script>
+</body>
+</html>
