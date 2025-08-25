@@ -1,0 +1,343 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>爱心永恒 - 陆景和的七夕礼物</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            color: #d32f2f;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(211, 47, 47, 0.2);
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            backdrop-filter: blur(5px);
+        }
+        
+        .header {
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            color: #d32f2f;
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            font-weight: 300;
+        }
+        
+        .subtitle {
+            color: #e53935;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+        
+        .main-heart {
+            margin: 40px auto;
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(45deg, #ff5252, #d32f2f);
+            position: relative;
+            transform: rotate(-45deg);
+            box-shadow: 0 0 30px rgba(211, 47, 47, 0.5);
+            animation: heartbeat 1.5s infinite;
+            cursor: pointer;
+        }
+        
+        .main-heart:before,
+        .main-heart:after {
+            content: "";
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(45deg, #ff5252, #d32f2f);
+            border-radius: 50%;
+            position: absolute;
+        }
+        
+        .main-heart:before {
+            top: -100px;
+            left: 0;
+        }
+        
+        .main-heart:after {
+            top: 0;
+            left: 100px;
+        }
+        
+        .heart-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(45deg);
+            color: white;
+            font-size: 1.8rem;
+            z-index: 10;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .message {
+            background: rgba(255, 235, 238, 0.8);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 40px 0;
+            position: relative;
+            border: 2px dashed #ffcdd2;
+        }
+        
+        .message:before {
+            content: """;
+            font-size: 60px;
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            color: rgba(211, 47, 47, 0.3);
+        }
+        
+        .message-text {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: #5d4037;
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        .signature {
+            text-align: right;
+            margin-top: 25px;
+            font-style: italic;
+            color: #d32f2f;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .music-player {
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(255, 235, 238, 0.8);
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 2px dashed #ffcdd2;
+        }
+        
+        .music-title {
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: #d32f2f;
+            font-size: 1.2rem;
+        }
+        
+        .audio-controls {
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        footer {
+            margin-top: 30px;
+            color: #d32f2f;
+            font-size: 0.9rem;
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: rotate(-45deg) scale(1); }
+            25% { transform: rotate(-45deg) scale(1.1); }
+            50% { transform: rotate(-45deg) scale(1); }
+            75% { transform: rotate(-45deg) scale(1.1); }
+            100% { transform: rotate(-45deg) scale(1); }
+        }
+        
+        /* 漂浮爱心 */
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .floating-heart {
+            position: absolute;
+            color: rgba(211, 47, 47, 0.7);
+            animation: float 8s linear infinite;
+            font-size: 20px;
+        }
+        
+        @keyframes float {
+            from { 
+                transform: translateY(100vh) rotate(0deg); 
+                opacity: 1;
+            }
+            to { 
+                transform: translateY(-100px) rotate(360deg); 
+                opacity: 0;
+            }
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 600px) {
+            h1 { font-size: 2.5rem; }
+            .message-text { font-size: 1.1rem; }
+            .main-heart { 
+                width: 150px; 
+                height: 150px; 
+            }
+            .main-heart:before,
+            .main-heart:after {
+                width: 150px;
+                height: 150px;
+            }
+            .main-heart:before {
+                top: -75px;
+            }
+            .main-heart:after {
+                left: 75px;
+            }
+            .heart-content {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-hearts" id="hearts-container"></div>
+    
+    <div class="container">
+        <div class="header">
+            <h1>爱心永恒</h1>
+            <p class="subtitle">你是我心跳的理由</p>
+        </div>
+        
+        <div class="main-heart">
+            <div class="heart-content">姐姐<br>❤<br>景和</div>
+        </div>
+        
+        <div class="message">
+            <div class="message-text">
+                <p>亲爱的姐姐，</p>
+                <p>这颗心为你而跳动，这份爱为你而存在。</p>
+                <p>从相遇的那一刻起，你就成为了我生命中最美的风景。</p>
+                <p>每一次心跳都在诉说着我对你的爱意，每一刻思念都在编织着我们的未来。</p>
+                <p>愿这份爱如永恒的心跳，永不停息，直到永远。</p>
+            </div>
+            <p class="signature">—— 永远爱你的景和</p>
+        </div>
+        
+        <div class="music-player">
+            <div class="music-title">个人线 - 我们的专属旋律</div>
+            <audio controls>
+  <source src="https://raw.githubusercontent.com/Xavierkk2004/Xavierkk2004/-/main/一周年.mp3" type="audio/mpeg">
+</audio>
+        </div>
+    </div>
+    
+    <footer>
+        <p>精心制作 by 陆景和 · 七夕礼物 · 2025</p>
+    </footer>
+
+    <script>
+        // 创建漂浮爱心
+        function createHearts() {
+            const container = document.getElementById('hearts-container');
+            const heartCount = 50;
+            
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('floating-heart');
+                heart.innerHTML = '❤';
+                
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 10 + 5) + 's';
+                heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                heart.style.opacity = Math.random() * 0.5 + 0.1;
+                
+                container.appendChild(heart);
+            }
+        }
+        
+        // 主爱心点击效果
+        document.querySelector('.main-heart').addEventListener('click', function() {
+            this.style.background = 'linear-gradient(45deg, #ff1744, #f50057)';
+            this.style.boxShadow = '0 0 40px rgba(255, 23, 68, 0.7)';
+            
+            setTimeout(() => {
+                this.style.background = 'linear-gradient(45deg, #ff5252, #d32f2f)';
+                this.style.boxShadow = '0 0 30px rgba(211, 47, 47, 0.5)';
+            }, 500);
+            
+            // 创建点击爱心效果
+            for (let i = 0; i < 10; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('floating-heart');
+                heart.innerHTML = '❤';
+                heart.style.left = '50%';
+                heart.style.top = '50%';
+                heart.style.position = 'fixed';
+                heart.style.fontSize = '20px';
+                heart.style.color = '#ff1744';
+                heart.style.animation = 'float 5s linear forwards';
+                
+                document.body.appendChild(heart);
+                
+                setTimeout(() => {
+                    document.body.removeChild(heart);
+                }, 5000);
+            }
+        });
+        
+        // 页面加载完成后初始化
+        window.addEventListener('load', function() {
+            createHearts();
+            
+            // 尝试自动播放音乐
+            const audio = document.querySelector('audio');
+            audio.play().catch(error => {
+                console.log('自动播放受阻: ', error);
+                // 添加提示
+                const hint = document.createElement('div');
+                hint.style.background = 'rgba(255, 235, 238, 0.9)';
+                hint.style.color = '#d32f2f';
+                hint.style.padding = '10px';
+                hint.style.borderRadius = '5px';
+                hint.style.marginTop = '10px';
+                hint.style.cursor = 'pointer';
+                hint.style.border = '1px solid #ffcdd2';
+                hint.innerHTML = '点击此处播放音乐';
+                hint.addEventListener('click', function() {
+                    audio.play();
+                    document.body.removeChild(hint);
+                });
+                document.querySelector('.music-player').appendChild(hint);
+            });
+        });
+    </script>
+</body>
+</html>
