@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>夏日海滩 - 陆景和的七夕礼物</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to bottom, #4da0ff, #87cefa);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 900px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+        }
+        
+        .header {
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            color: #ffde59;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        
+        .pixel-art {
+            margin: 20px auto;
+            width: 500px;
+            height: 350px;
+            position: relative;
+            image-rendering: pixelated;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+        
+        .beach-scene {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            box-shadow: 0 0 25px rgba(255, 222, 89, 0.5);
+            background: linear-gradient(to bottom, #4da0ff 40%, #f0c869 40%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* 太阳 */
+        .sun {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            width: 60px;
+            height: 60px;
+            background: #ffde59;
+            border-radius: 50%;
+            box-shadow: 0 0 20px #ffde59, 0 0 40px #ff9d59;
+            animation: pulseSun 4s infinite alternate;
+        }
+        
+        /* 海浪 */
+        .waves {
+            position: absolute;
+            bottom: 110px;
+            width: 100%;
+            height: 20px;
+        }
+        
+        .wave {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 10px;
+            background: rgba(135, 206, 250, 0.7);
+            border-radius: 50%;
+            animation: wave 6s infinite ease-in-out;
+        }
+        
+        /* 沙滩 */
+        .sand {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 110px;
+            background: #f0c869;
+        }
+        
+        /* 遮阳伞 */
+        .umbrella {
+            position: absolute;
+            bottom: 110px;
+            left: 100px;
+            width: 60px;
+            height: 120px;
+        }
+        
+        .umbrella-top {
+            position: absolute;
+            top: 0;
+            width: 60px;
+            height: 40px;
+            background: #e91e63;
+            border-radius: 50% 50% 0 0;
+        }
+        
+        .umbrella-pole {
+            position: absolute;
+            top: 35px;
+            left: 29px;
+            width: 2px;
+            height: 85px;
+            background: #795548;
+        }
+        
+        /* 沙滩椅 */
+        .beach-chair {
+            position: absolute;
+            bottom: 110px;
+            right: 120px;
+            width: 50px;
+            height: 30px;
+            background: #ff9800;
+            border-radius: 5px 5px 0 0;
+            transform: rotate(-15deg);
+        }
+        
+        .chair-legs {
+            position: absolute;
+            bottom: -15px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .leg {
+            width: 3px;
+            height: 15px;
+            background: #795548;
+        }
+        
+        /* 椰子树叶 */
+        .palm-tree {
+            position: absolute;
+            bottom: 110px;
+            left: 250px;
+        }
+        
+        .trunk {
+            position: absolute;
+            width: 10px;
+            height: 70px;
+            background: #8b4513;
+            bottom: 0;
+            left: 5px;
+        }
+        
+        .leaves {
+            position: absolute;
+            bottom: 70px;
+            left: -15px;
+            width: 40px;
+            height: 40px;
+            background: #228b22;
+            border-radius: 50% 50% 0 50%;
+            transform: rotate(45deg);
+        }
+        
+        .leaves::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            width: 40px;
+            height: 40px;
+            background: #228b22;
+            border-radius: 50% 50% 0 50%;
+            transform: rotate(-90deg);
+        }
+        
+        /* 海星和贝壳 */
+        .shell {
+            position: absolute;
+            bottom: 10px;
+            width: 20px;
+            height: 15px;
+            background: #ff9d9d;
+            border-radius: 50% 50% 0 0;
+        }
+        
+        .shell-1 {
+            left: 180px;
+            background: linear-gradient(45deg, #ff9d9d, #ff7eb3);
+        }
+        
+        .shell-2 {
+            left: 300px;
+            background: linear-gradient(45deg, #ffd700, #ff9d00);
+            width: 18px;
+            height: 13px;
+        }
+        
+        .starfish {
+            position: absolute;
+            bottom: 15px;
+            right: 200px;
+            width: 20px;
+            height: 20px;
+            background: #ff5252;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+        }
+        
+        /* 浮云 */
+        .cloud {
+            position: absolute;
+            background: #ffffff;
+            border-radius: 10px;
+            opacity: 0.9;
+            animation: float 20s infinite linear;
+        }
+        
+        .cloud-1 {
+            top: 40px;
+            left: -100px;
+            width: 60px;
+            height: 25px;
+            animation-duration: 25s;
+        }
+        
+        .cloud-2 {
+            top: 70px;
+            left: -150px;
+            width: 40px;
+            height: 20px;
+            animation-duration: 20s;
+            animation-delay: 5s;
+        }
+        
+        /* 海浪动画 */
+        @keyframes wave {
+            0% { transform: translateX(0) scaleY(1); }
+            50% { transform: translateX(-10px) scaleY(1.2); }
+            100% { transform: translateX(0) scaleY(1); }
+        }
+        
+        /* 太阳动画 */
+        @keyframes pulseSun {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+        
+        /* 云朵动画 */
+        @keyframes float {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(100vw + 100px)); }
+        }
+        
+        /* 内容区域 */
+        .message {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            position: relative;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 222, 89, 0.3);
+        }
+        
+        .message-text {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #fff;
+            text-align: center;
+        }
+        
+        .signature {
+            text-align: right;
+            margin-top: 20px;
+            font-style: italic;
+            color: #ffde59;
+            font-weight: bold;
+        }
+        
+        .music-player {
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid rgba(255, 222, 89, 0.3);
+        }
+        
+        .music-title {
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: #ffde59;
+            font-size: 1.2rem;
+        }
+        
+        .audio-controls {
+            width: 100%;
+            max-width: 400px;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+        
+        .audio-controls:hover {
+            opacity: 1;
+        }
+        
+        footer {
+            margin-top: 30px;
+            color: #fff;
+            font-size: 0.9rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 600px) {
+            h1 { font-size: 2.2rem; }
+            .pixel-art { width: 350px; height: 250px; }
+            .message-text { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>夏日海滩</h1>
+            <p class="subtitle">愿我们的爱情如夏日阳光般温暖，如海浪般永恒</p>
+        </div>
+        
+        <div class="pixel-art">
+            <div class="beach-scene">
+                <div class="sun"></div>
+                
+                <div class="waves">
+                    <div class="wave"></div>
+                </div>
+                
+                <div class="sand"></div>
+                
+                <div class="umbrella">
+                    <div class="umbrella-top"></div>
+                    <div class="umbrella-pole"></div>
+                </div>
+                
+                <div class="beach-chair">
+                    <div class="chair-legs">
+                        <div class="leg"></div>
+                        <div class="leg"></div>
+                    </div>
+                </div>
+                
+                <div class="palm-tree">
+                    <div class="trunk"></div>
+                    <div class="leaves"></div>
+                </div>
+                
+                <div class="shell shell-1"></div>
+                <div class="shell shell-2"></div>
+                <div class="starfish"></div>
+                
+                <div class="cloud cloud-1"></div>
+                <div class="cloud cloud-2"></div>
+            </div>
+        </div>
+        
+        <div class="music-title">海滩正式 - 我们的夏日旋律</div>
+        
+        <audio class="audio-controls" id="bgMusic" controls autoplay loop>
+            <source src="海滩正式.mp3" type="audio/mp3">
+            您的浏览器不支持音频播放功能。
+        </audio>
+        
+        <div class="message">
+            <div class="message-text">
+                <p>亲爱的姐姐~</p>
+                <p>这个夏日海滩呢，代表着我们阳光般灿烂的爱情！</p>
+                <p>就像海浪永远亲吻着沙滩，我会永远陪伴在你身边。</p>
+                <p>愿我们的未来充满阳光、沙滩和海洋一样无限的浪漫。</p>
+                <p>在这个、下一个、下下个夏日里，我只想与你一起度过每一个美好瞬间。</p>
+            </div>
+            <p class="signature">—— 爱你的景和</p>
+        </div>
+    </div>
+    
+    <footer>
+        <p>精心制作 by 陆景和 · 七夕礼物 · 2025</p>
+    </footer>
+
+    <script>
+        // 页面加载完成后初始化
+        window.addEventListener('load', function() {
+            // 尝试自动播放音乐
+            const audio = document.getElementById('bgMusic');
+            audio.play().catch(error => {
+                console.log('自动播放受阻，需要用户交互: ', error);
+                // 添加提示
+                const hint = document.createElement('div');
+                hint.style.background = 'rgba(255, 222, 89, 0.9)';
+                hint.style.color = '#1a2980';
+                hint.style.padding = '10px';
+                hint.style.borderRadius = '5px';
+                hint.style.marginTop = '10px';
+                hint.style.cursor = 'pointer';
+                hint.innerHTML = '点击此处播放音乐';
+                hint.addEventListener('click', function() {
+                    audio.play();
+                    document.body.removeChild(hint);
+                });
+                document.querySelector('.music-player').appendChild(hint);
+            });
+            
+            // 添加点击海浪的互动效果
+            const wave = document.querySelector('.wave');
+            wave.addEventListener('click', function() {
+                this.style.background = '#4da0ff';
+                setTimeout(() => {
+                    this.style.background = 'rgba(135, 206, 250, 0.7)';
+                }, 500);
+            });
+        });
+    </script>
+</body>
+</html>
