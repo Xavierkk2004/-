@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>七夕快乐 - 给最爱的姐姐</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #fce4ec, #e3f2fd);
+            color: #5a5a5a;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .header {
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: #e91e63;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .subtitle {
+            color: #9c27b0;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .comb-container {
+            margin: 40px 0;
+            padding: 20px;
+            position: relative;
+        }
+        
+        .comb {
+            font-size: 120px;
+            color: #7b1fa2;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+            animation: pulse 2s infinite;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .comb:hover {
+            transform: translateY(-5px);
+            color: #e91e63;
+        }
+        
+        .heart-btn {
+            position: absolute;
+            bottom: 0;
+            right: 30px;
+            font-size: 40px;
+            color: #e91e63;
+            cursor: pointer;
+            animation: heartbeat 1.5s infinite;
+            z-index: 10;
+        }
+        
+        .message {
+            background: #f3e5f5;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: left;
+        }
+        
+        .message:before {
+            content: """;
+            font-size: 60px;
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            color: #e91e63;
+        }
+        
+        .message-text {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #555;
+        }
+        
+        .message-text p {
+            margin-bottom: 15px;
+        }
+        
+        .signature {
+            text-align: right;
+            margin-top: 15px;
+            font-style: italic;
+            color: #9c27b0;
+            font-weight: bold;
+        }
+        
+        .music-player {
+            margin: 30px 0;
+            padding: 15px;
+            background: #f8bbd0;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .music-title {
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: #880e4f;
+        }
+        
+        .audio-controls {
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .hearts {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            font-size: 40px;
+            color: #e91e63;
+            transform: rotate(15deg);
+        }
+        
+        footer {
+            margin-top: 30px;
+            color: #7e57c2;
+            font-size: 0.9rem;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        @media (max-width: 600px) {
+            h1 { font-size: 2rem; }
+            .comb { font-size: 80px; }
+            .message-text { font-size: 1rem; }
+            .heart-btn { right: 10px; }
+        }
+        
+        /* 浮动心形动画 */
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .heart {
+            position: absolute;
+            color: rgba(233, 30, 99, 0.5);
+            animation: float 8s linear infinite;
+            font-size: 20px;
+        }
+        
+        @keyframes float {
+            from { transform: translateY(100vh) rotate(0deg); }
+            to { transform: translateY(-100px) rotate(360deg); }
+        }
+        
+        /* 回忆相册样式 */
+        .memories {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .memory-item {
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
+            background: linear-gradient(45deg, #e91e63, #9c27b0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .memory-item:hover {
+            transform: rotate(5deg) scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-hearts" id="hearts-container"></div>
+    
+    <div class="container">
+        <div class="hearts">❤</div>
+        
+        <div class="header">
+            <h1>五周年快乐，亲爱的姐姐！</h1>
+            <p class="subtitle">时光荏苒，爱意永恒 - 陆景和</p>
+        </div>
+        
+        <div class="comb-container">
+            <i class="comb fas fa-spa"></i>
+            <div class="heart-btn" id="heartBtn">❤</div>
+        </div>
+        
+        <div class="message">
+            <div class="message-text">
+                <p>亲爱的姐姐，七夕快乐！</p>
+                
+                <p>小姐姐，走路的时候要看前面(*^▽^*)。还记得吗？这把梳子代表着，我想为你梳开所有烦恼，只留下幸福和快乐的心愿。</p>
+                
+                <p>五年的时光里，我们共同经历了那么多美好的瞬间：第一次约会，第一次牵手，第一次一起看星星......这些回忆我都珍藏在心底最柔软的地方。</p>
+                
+                <p>就像梳子梳理发丝一样，愿我们可以继续梳理生活中的点点滴滴，无论是欢笑还是泪水，都彼此相依相伴。感谢你五年来对我的包容与爱护，让我的生命变得完整而美好。</p>
+                
+                <p>我们的爱情，会如同这把梳子所寓意的那样，梳开所有烦恼，永结同心，白首不离。</p>
+            </div>
+            <p class="signature">—— 永远爱你的景和 ❤</p>
+        </div>
+        
+        <div class="memories">
+            <div class="memory-item">1年</div>
+            <div class="memory-item">2年</div>
+            <div class="memory-item">3年</div>
+            <div class="memory-item">4年</div>
+            <div class="memory-item">5年</div>
+        </div>
+        
+        <div class="music-player">
+            <div class="music-title">意笔明心</div>
+            <audio class="audio-controls" controls autoplay loop>
+                <source src="一周年.mp3" type="audio/mp3">
+                您的浏览器不支持音频播放功能。
+            </audio>
+        </div>
+    </div>
+    
+    <footer>
+        <p>精心制作 by 小和 · 七夕礼物 · 2025</p>
+    </footer>
+
+    <script>
+        // 创建浮动心形
+        function createHearts() {
+            const container = document.getElementById('hearts-container');
+            const heartCount = 30;
+            
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerHTML = '❤';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 6 + 4) + 's';
+                heart.style.opacity = Math.random() * 0.5 + 0.3;
+                heart.style.fontSize = (Math.random() * 15 + 10) + 'px';
+                container.appendChild(heart);
+            }
+        }
+        
+        // 爱心按钮点击效果
+        document.getElementById('heartBtn').addEventListener('click', function() {
+            this.style.transform = 'scale(1.5)';
+            this.style.color = '#ff0000';
+            
+            // 创建点击心形效果
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤';
+            heart.style.left = '50%';
+            heart.style.top = '50%';
+            heart.style.position = 'fixed';
+            heart.style.fontSize = '40px';
+            heart.style.color = '#ff0000';
+            heart.style.transform = 'translate(-50%, -50%)';
+            heart.style.zIndex = '1000';
+            heart.style.animation = 'none';
+            
+            document.body.appendChild(heart);
+            
+            // 触发重排
+            void heart.offsetWidth;
+            
+            heart.style.animation = 'float 5s linear forwards';
+            
+            setTimeout(() => {
+                this.style.transform = 'scale(1)';
+                this.style.color = '#e91e63';
+                document.body.removeChild(heart);
+            }, 500);
+        });
+        
+        // 梳子点击效果
+        document.querySelector('.comb').addEventListener('click', function() {
+            this.style.transform = 'scale(1.2)';
+            this.style.color = '#e91e63';
+            setTimeout(() => {
+                this.style.transform = 'scale(1)';
+                this.style.color = '#7b1fa2';
+            }, 500);
+        });
+        
+        // 页面加载完成后初始化
+        window.addEventListener('load', function() {
+            createHearts();
+            
+            // 尝试自动播放音乐
+            const audio = document.querySelector('audio');
+            audio.play().catch(error => {
+                console.log('自动播放受阻，需要用户交互: ', error);
+            });
+        });
+    </script>
+</body>
+</html>
