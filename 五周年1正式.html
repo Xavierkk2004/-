@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>星空梦境 - 陆景和的七夕礼物</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to bottom, #0a0a2a, #000033, #0a0a2a);
+            color: #e0e0ff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 900px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .header {
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px rgba(224, 224, 255, 0.5);
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: #ffff66;
+            letter-spacing: 3px;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #a0a0ff;
+        }
+        
+        .pixel-art-container {
+            margin: 30px auto;
+            width: 400px;
+            height: 400px;
+            position: relative;
+            image-rendering: pixelated;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+        
+        .stars-canvas {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(100, 150, 255, 0.5);
+            background: #000033;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* 星星样式 */
+        .star {
+            position: absolute;
+            background: #ffffff;
+            border-radius: 50%;
+            animation: twinkle 5s infinite;
+        }
+        
+        .star-large {
+            width: 6px;
+            height: 6px;
+            box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.8);
+        }
+        
+        .star-medium {
+            width: 4px;
+            height: 4px;
+            box-shadow: 0 0 8px 1px rgba(255, 255, 255, 0.7);
+        }
+        
+        .star-small {
+            width: 2px;
+            height: 2px;
+            box-shadow: 0 0 6px 1px rgba(255, 255, 255, 0.6);
+        }
+        
+        /* 星座样式 */
+        .constellation {
+            position: absolute;
+            width: 100px;
+            height: 80px;
+        }
+        
+        .constellation-dot {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #ffff99;
+            border-radius: 50%;
+            box-shadow: 0 0 8px 2px rgba(255, 255, 153, 0.6);
+        }
+        
+        .constellation-line {
+            position: absolute;
+            height: 2px;
+            background: rgba(255, 255, 153, 0.4);
+            transform-origin: 0 0;
+        }
+        
+        /* 流星样式 */
+        .shooting-star {
+            position: absolute;
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #ffffff);
+            transform-origin: 0 0;
+            animation: shoot 5s infinite;
+            opacity: 0;
+        }
+        
+        .message {
+            background: rgba(10, 10, 42, 0.7);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            position: relative;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(100, 150, 255, 0.3);
+        }
+        
+        .message-text {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #e0e0ff;
+            text-align: center;
+        }
+        
+        .signature {
+            text-align: right;
+            margin-top: 20px;
+            font-style: italic;
+            color: #ffff66;
+            font-weight: bold;
+        }
+        
+        .music-player {
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(10, 10, 42, 0.7);
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid rgba(100, 150, 255, 0.3);
+        }
+        
+        .music-title {
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: #ffff66;
+            font-size: 1.2rem;
+        }
+        
+        .audio-controls {
+            width: 100%;
+            max-width: 400px;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+        
+        .audio-controls:hover {
+            opacity: 1;
+        }
+        
+        footer {
+            margin-top: 30px;
+            color: #a0a0ff;
+            font-size: 0.9rem;
+        }
+        
+        /* 动画定义 */
+        @keyframes twinkle {
+            0% { opacity: 0.3; }
+            50% { opacity: 1; }
+            100% { opacity: 0.3; }
+        }
+        
+        @keyframes shoot {
+            0% {
+                opacity: 0;
+                transform: translate(0, 0) rotate(20deg) scale(1);
+            }
+            1% {
+                opacity: 1;
+            }
+            10% {
+                opacity: 1;
+                transform: translate(300px, 150px) rotate(20deg) scale(1);
+            }
+            11% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 0;
+                transform: translate(300px, 150px) rotate(20deg) scale(1);
+            }
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 600px) {
+            h1 { font-size: 2.2rem; }
+            .message-text { font-size: 1.1rem; }
+            .pixel-art-container { 
+                width: 320px; 
+                height: 320px; 
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>星空梦境</h1>
+            <p class="subtitle">每一颗星星都代表着我对你的思念</p>
+        </div>
+        
+        <div class="pixel-art-container">
+            <div class="stars-canvas" id="starsCanvas">
+                <!-- 星星和星座将通过JS生成 -->
+            </div>
+        </div>
+        
+        <div class="message">
+            <div class="message-text">
+                <p>亲爱的姐姐，</p>
+                <p>这片星空是我为你编织的梦境，每一颗闪烁的星星都是我想你的瞬间。</p>
+                <p>就像星星永远守护着夜空，我会永远守护着你，无论距离多远，听到你的呼唤，我都会来到你的身边。</p>
+                <p>我们的爱会如这星空般永恒，如星辰般璀璨。</p>
+            </div>
+            <p class="signature">—— 爱你的景和</p>
+        </div>
+        
+        <div class="music-player">
+            <div class="music-title">五周年1正式 - 我们的星空旋律</div>
+            <audio class="audio-controls" controls autoplay loop>
+                <source src="五周年1正式.mp3" type="audio/mp3">
+                您的浏览器不支持音频播放功能。
+            </audio>
+        </div>
+    </div>
+    
+    <footer>
+        <p>精心制作 by 小和 · 七夕礼物 · 2025</p>
+    </footer>
+
+    <script>
+        // 创建星星
+        function createStars() {
+            const container = document.getElementById('starsCanvas');
+            
+            // 创建背景星星
+            for (let i = 0; i < 150; i++) {
+                const star = document.createElement('div');
+                
+                // 随机大小
+                const sizeType = Math.random();
+                if (sizeType < 0.1) {
+                    star.classList.add('star', 'star-large');
+                } else if (sizeType < 0.3) {
+                    star.classList.add('star', 'star-medium');
+                } else {
+                    star.classList.add('star', 'star-small');
+                }
+                
+                // 随机位置
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                
+                // 随机动画延迟
+                star.style.animationDelay = `${Math.random() * 5}s`;
+                
+                container.appendChild(star);
+            }
+            
+            // 创建星座
+            createConstellation(container, 50, 50, 5);
+            createConstellation(container, 300, 100, 6);
+            createConstellation(container, 150, 300, 4);
+            
+            // 创建流星
+            createShootingStars(container);
+        }
+        
+        // 创建星座
+        function createConstellation(container, x, y, pointCount) {
+            const constellation = document.createElement('div');
+            constellation.classList.add('constellation');
+            constellation.style.left = `${x}px`;
+            constellation.style.top = `${y}px`;
+            
+            const points = [];
+            
+            // 创建星座点
+            for (let i = 0; i < pointCount; i++) {
+                const dot = document.createElement('div');
+                dot.classList.add('constellation-dot');
+                
+                const dotX = Math.random() * 80;
+                const dotY = Math.random() * 60;
+                
+                dot.style.left = `${dotX}px`;
+                dot.style.top = `${dotY}px`;
+                
+                constellation.appendChild(dot);
+                points.push({x: dotX, y: dotY});
+            }
+            
+            // 创建星座连线
+            for (let i = 0; i < points.length - 1; i++) {
+                for (let j = i + 1; j < points.length; j++) {
+                    // 随机决定是否连线
+                    if (Math.random() > 0.6) {
+                        const line = document.createElement('div');
+                        line.classList.add('constellation-line');
+                        
+                        const from = points[i];
+                        const to = points[j];
+                        
+                        const distance = Math.sqrt(Math.pow(to.x - from.x, 2) + Math.pow(to.y - from.y, 2));
+                        const angle = Math.atan2(to.y - from.y, to.x - from.x) * 180 / Math.PI;
+                        
+                        line.style.width = `${distance}px`;
+                        line.style.left = `${from.x}px`;
+                        line.style.top = `${from.y}px`;
+                        line.style.transform = `rotate(${angle}deg)`;
+                        
+                        constellation.appendChild(line);
+                    }
+                }
+            }
+            
+            container.appendChild(constellation);
+        }
+        
+        // 创建流星
+        function createShootingStars(container) {
+            for (let i = 0; i < 3; i++) {
+                const star = document.createElement('div');
+                star.classList.add('shooting-star');
+                
+                star.style.left = `${Math.random() * 50}px`;
+                star.style.top = `${Math.random() * 50}px`;
+                
+                star.style.animationDelay = `${Math.random() * 15}s`;
+                
+                container.appendChild(star);
+            }
+        }
+        
+        // 页面加载完成后初始化
+        window.addEventListener('load', function() {
+            createStars();
+            
+            // 尝试自动播放音乐
+            const audio = document.querySelector('audio');
+            audio.play().catch(error => {
+                console.log('自动播放受阻: ', error);
+                // 添加提示
+                const hint = document.createElement('div');
+                hint.style.background = 'rgba(255, 255, 153, 0.9)';
+                hint.style.color = '#000033';
+                hint.style.padding = '10px';
+                hint.style.borderRadius = '5px';
+                hint.style.marginTop = '10px';
+                hint.style.cursor = 'pointer';
+                hint.style.border = '1px solid #ffff66';
+                hint.innerHTML = '点击此处播放音乐';
+                hint.addEventListener('click', function() {
+                    audio.play();
+                    hint.style.display = 'none';
+                });
+                document.querySelector('.music-player').appendChild(hint);
+            });
+        });
+    </script>
+</body>
+</html>
