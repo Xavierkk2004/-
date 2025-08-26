@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>七夕礼物 - 陆景和的秘密暗号</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f4d3ff 0%, #c9b6ff 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(146, 82, 216, 0.3);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .page {
+            padding: 30px;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            min-height: 500px;
+        }
+        
+        .active {
+            display: flex;
+        }
+        
+        h1 {
+            color: #8a2be2;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 28px;
+        }
+        
+        .prompt {
+            background: rgba(226, 208, 255, 0.5);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 18px;
+            width: 100%;
+            position: relative;
+        }
+        
+        .prompt::before {
+            content: '"';
+            font-size: 50px;
+            color: #9370db;
+            position: absolute;
+            left: 10px;
+            top: 0;
+        }
+        
+        .input-container {
+            width: 100%;
+            margin: 20px 0;
+        }
+        
+        input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ba9cff;
+            border-radius: 10px;
+            font-size: 16px;
+            outline: none;
+            transition: all 0.3s;
+        }
+        
+        input:focus {
+            border-color: #8a2be2;
+            box-shadow: 0 0 10px rgba(138, 43, 226, 0.5);
+        }
+        
+        button {
+            background: linear-gradient(to right, #9d50bb, #6e48aa);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+        
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(110, 72, 170, 0.4);
+        }
+        
+        .error {
+            color: #ff4d94;
+            margin-top: 15px;
+            text-align: center;
+            display: none;
+            font-size: 16px;
+        }
+        
+        .heart {
+            position: absolute;
+            background: #ff4d94;
+            transform: rotate(45deg);
+        }
+        
+        .heart:before, .heart:after {
+            content: "";
+            position: absolute;
+            background: #ff4d94;
+            border-radius: 50%;
+        }
+        
+        .heart:before {
+            top: -10px;
+            left: 0;
+        }
+        
+        .heart:after {
+            top: 0;
+            left: -10px;
+        }
+        
+        .lu-img {
+            width: 150px;
+            height: 150px;
+            background: #e6d7ff;
+            border-radius: 50%;
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 60px;
+            color: #8a2be2;
+        }
+        
+        .nfc-hint {
+            background: #f0e6ff;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 14px;
+            color: #6e48aa;
+        }
+        
+        .final-message {
+            text-align: center;
+            line-height: 1.6;
+            margin: 20px 0;
+            font-size: 18px;
+        }
+        
+        .signature {
+            text-align: right;
+            margin-top: 30px;
+            font-style: italic;
+            color: #8a2be2;
+        }
+        
+        .flowers {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin: 20px 0;
+        }
+        
+        .flower {
+            font-size: 30px;
+            animation: float 3s infinite ease-in-out;
+        }
+        
+        .flower:nth-child(2) {
+            animation-delay: 1s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .stars {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        
+        .star {
+            font-size: 25px;
+            margin: 0 5px;
+            animation: twinkle 2s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 页面1: 初始页面 -->
+        <div class="page active" id="page1">
+            <h1>七夕快乐，姐姐！</h1>
+            <div class="lu-img">💜</div>
+            <div class="prompt">
+                第一站——  </div>
+            <div class="nfc-hint">
+                💡 NFC提示：扫描小红花左侧获取暗号
+            </div>
+            <div class="input-container">
+                <input type="text" id="code1" placeholder="请输入暗号...">
+                <button onclick="checkCode(1)">验证暗号</button>
+            </div>
+            <div class="error" id="error1">不是这个哦~让小和来和姐姐心电感应一下吧</div>
+        </div>
+        
+        <!-- 页面2: 第二个暗号 -->
+        <div class="page" id="page2">
+            <h1>第二站：回忆之旅</h1>
+            <div class="flowers">
+                <div class="flower">🌹</div>
+                <div class="flower">🌸</div>
+                <div class="flower">💮</div>
+            </div>
+            <div class="prompt">
+                时间见证了我们的成长，另一朵小红花藏着我们的珍贵记忆
+            </div>
+            <div class="nfc-hint">
+                💡 NFC提示：扫描右侧的小红花获取暗号
+            </div>
+            <div class="input-container">
+                <input type="text" id="code2" placeholder="请输入暗号...">
+                <button onclick="checkCode(2)">验证暗号</button>
+            </div>
+            <div class="error" id="error2">不是这个哦~让小和来和姐姐心电感应一下吧</div>
+        </div>
+        
+        <!-- 页面3: 第三个暗号 -->
+        <div class="page" id="page3">
+            <h1>第三站：星海之约</h1>
+            <div class="stars">
+                <div class="star">⭐</div>
+                <div class="star">🌟</div>
+                <div class="star">✨</div>
+                <div class="star">💫</div>
+            </div>
+            <div class="prompt">
+                在繁星点点的夜空下，我们许下过无数美好的愿望
+            </div>
+            <div class="nfc-hint">
+                💡 NFC提示：找到双星获取暗号
+            </div>
+            <div class="input-container">
+                <input type="text" id="code3" placeholder="请输入暗号...">
+                <button onclick="checkCode(3)">验证暗号</button>
+            </div>
+            <div class="error" id="error3">不是这个哦~让小和来和姐姐心电感应一下吧</div>
+        </div>
+        
+        <!-- 页面4: 第四个暗号 -->
+        <div class="page" id="page4">
+            <h1>第四站：约定之日</h1>
+            <div class="lu-img">🔍</div>
+            <div class="prompt">
+                拼图上空缺的线索，是一个关于爱和人生的承诺。            </div>
+            <div class="nfc-hint">
+                💡 NFC提示：查看星星背面获取暗号
+            </div>
+            <div class="input-container">
+                <input type="text" id="code4" placeholder="请输入暗号...">
+                <button onclick="checkCode(4)">验证暗号</button>
+            </div>
+            <div class="error" id="error4">不是这个哦~让小和来和姐姐心电感应一下吧</div>
+        </div>
+        
+        <!-- 页面5: 第五个暗号 -->
+        <div class="page" id="page5">
+            <h1>第五站：云端漫步</h1>
+            <div class="lu-img">☁️</div>
+            <div class="prompt">
+                和你在一起的每一天，都像漫步在柔软的云朵上
+            </div>
+            <div class="nfc-hint">
+                💡 NFC提示：扫描云朵获取暗号
+            </div>
+            <div class="input-container">
+                <input type="text" id="code5" placeholder="请输入暗号...">
+                <button onclick="checkCode(5)">验证暗号</button>
+            </div>
+            <div class="error" id="error5">不是这个哦~让小和来和姐姐心电感应一下吧</div>
+        </div>
+        
+        <!-- 页面6: 第六个暗号 -->
+        <div class="page" id="page6">
+            <h1>第六站：花语秘密</h1>
+            <div class="flowers">
+                <div class="flower">🌺</div>
+                <div class="flower">🌷</div>
+                <div class="flower">🌼</div>
+            </div>
+            <div class="prompt">
+                每一朵花都诉说着我的心意，这一枝代表什么？
+            </div>
+            <div class="nfc-hint">
+                💡 NFC提示：找到一枝花获取暗号
+            </div>
+            <div class="input-container">
+                <input type="text" id="code6" placeholder="请输入暗号...">
+                <button onclick="checkCode(6)">验证暗号</button>
+            </div>
+            <div class="error" id="error6">不是这个哦~让小和来和姐姐心电感应一下吧</div>
+        </div>
+        
+        <!-- 页面7: 第七个暗号 -->
+        <div class="page" id="page7">
+            <h1>最终站：贝壳传情</h1>
+            <div class="lu-img">🐚</div>
+            <div class="prompt">
+                这是一封写给未来的信，要由现在的我们共同完成。
+            </div>
+            <div class="nfc-hint">
+                💡 NFC提示：扫描小贝壳获取暗号
+            </div>
+            <div class="input-container">
+                <input type="text" id="code7" placeholder="请输入暗号...">
+                <button onclick="checkCode(7)">验证暗号</button>
+            </div>
+            <div class="error" id="error7">不是这个哦~让小和来和姐姐心电感应一下吧</div>
+        </div>
+        
+        <!-- 页面8: 最终页面 -->
+        <div class="page" id="finalPage">
+            <h1>七夕快乐，我最爱的姐姐！</h1>
+            <div class="stars">
+                <div class="star">⭐</div>
+                <div class="star">🌟</div>
+                <div class="star">✨</div>
+            </div>
+            <div class="final-message">
+                <p>穿越所有暗号和谜题，想告诉你的其实很简单：</p>
+                <p>无论未来如何，无论明天多远，我都会在你身边，就像星星永远陪伴着月亮。</p>
+                <p>感谢你出现在我的生命，让我的世界变得明亮完整。</p>
+                <p>七夕快乐，我们的故事永不落幕。</p>
+            </div>
+            <div class="signature">
+                —— 永远爱你的陆景和
+            </div>
+            <div class="lu-img">💖</div>
+        </div>
+    </div>
+
+    <script>
+        // 定义所有正确的暗号
+        const correctCodes = {
+            1: "20190729",
+            2: "20210715",
+            3: "四时景",
+            4: "20220721",
+            5: "一起看星星吧",
+            6: "超越一切总和的？",
+            7: "一封未来和现在的信件"
+        };
+        
+        // 检查暗号是否正确
+        function checkCode(pageNumber) {
+            const inputElement = document.getElementById(`code${pageNumber}`);
+            const errorElement = document.getElementById(`error${pageNumber}`);
+            const userInput = inputElement.value.trim();
+            
+            if (userInput === correctCodes[pageNumber]) {
+                // 隐藏当前页面
+                document.getElementById(`page${pageNumber}`).classList.remove('active');
+                
+                // 如果是最后一页，显示最终页面
+                if (pageNumber === 7) {
+                    document.getElementById('finalPage').classList.add('active');
+                } else {
+                    // 显示下一页
+                    document.getElementById(`page${pageNumber + 1}`).classList.add('active');
+                }
+            } else {
+                // 显示错误信息
+                errorElement.style.display = 'block';
+                
+                // 3秒后隐藏错误信息
+                setTimeout(() => {
+                    errorElement.style.display = 'none';
+                }, 3000);
+            }
+        }
+        
+        // 添加按回车键提交的功能
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    const pageNumber = this.id.replace('code', '');
+                    checkCode(parseInt(pageNumber));
+                }
+            });
+        });
+        
+        // 创建一些漂浮的心形装饰
+        function createHearts() {
+            const container = document.querySelector('.container');
+            for (let i = 0; i < 5; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.style.width = Math.random() * 20 + 10 + 'px';
+                heart.style.height = heart.style.width;
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.top = Math.random() * 100 + '%';
+                heart.style.opacity = Math.random() * 0.5 + 0.3;
+                container.appendChild(heart);
+            }
+        }
+        
+        // 页面加载时创建装饰
+        window.onload = createHearts;
+    </script>
+</body>
+</html>
